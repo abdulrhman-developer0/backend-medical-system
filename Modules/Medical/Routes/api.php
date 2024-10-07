@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Medical\Http\Controllers\ClinicController;
+use Modules\Medical\Http\Controllers\DoctorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/medical', function (Request $request) {
-    return $request->user();
+Route::prefix('/medical')->group(function() {
+
+    Route::apiResource('/clinics', ClinicController::class);
+
+    Route::apiResource('/doctors', DoctorController::class);
 });
