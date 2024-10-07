@@ -22,7 +22,7 @@ class ClinicController extends Controller
      */
     public function index()
     {
-        $clinics = Clinic::paginate(10); // استخدام التصفح لتحسين الأداء
+        $clinics = Clinic::all();
 
         return $this->okResponse(
             message: "تم استدعاء API بنجاح",
