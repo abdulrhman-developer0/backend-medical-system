@@ -16,7 +16,7 @@ class UpdateDoctorRequest extends FormRequest
         return [
             'name' => 'nullable|string|max:255',
             'clinicId' => 'nullable|integer|exists:clinics,id',
-            'email' => 'nullable|email|max:255|unique:users,email',
+            'email' => 'nullable|email|max:255',
             'password' => 'nullable|string|min:8',
             'availableTimes' => 'nullable|array',
             'availableTimes.mon' => 'nullable|array',
