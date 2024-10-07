@@ -16,7 +16,7 @@ class ClinicController extends Controller
     use ApiResponses;
 
     /**
-     * عرض قائمة العيادات.
+     * Display a list of clinics.
      *
      * @return Response
      */
@@ -25,7 +25,7 @@ class ClinicController extends Controller
         $clinics = Clinic::all();
 
         return $this->okResponse(
-            message: "تم استدعاء API بنجاح",
+            message: "API call successful",
             data: [
                 'data' => $clinics
             ]
@@ -33,7 +33,7 @@ class ClinicController extends Controller
     }
 
     /**
-     * تخزين عيادة جديدة في التخزين.
+     * Store a newly created clinic in storage.
      *
      * @param StoreClinicRequest $request
      * @return Response
@@ -43,19 +43,21 @@ class ClinicController extends Controller
         $tdo = TDOFacade::make($request);
 
         $creationData = collect($tdo->asSnake())
-            ->except([]) // تحديد أي حقول لاستبعادها إذا لزم الأمر
+            ->except([])
             ->toArray();
 
         $clinic = Clinic::create($creationData);
 
         return $this->okResponse(
-            message: "تم إنشاء العيادة بنجاح",
-            data: $clinic
+            message: "Clinic created successfully",
+            data: [
+                'data' => $clinic
+            ]
         );
     }
 
     /**
-     * عرض العيادة المحددة.
+     * Display the specified clinic.
      *
      * @param int $id
      * @return Response
@@ -66,18 +68,20 @@ class ClinicController extends Controller
 
         if (!$clinic) {
             return $this->badResponse(
-                message: "لم يتم العثور على العيادة"
+                message: "Clinic not found"
             );
         }
 
         return $this->okResponse(
-            message: "تم استدعاء API بنجاح",
-            data: $clinic
+            message: "API call successful",
+            data: [
+                'data' => $clinic
+            ]
         );
     }
 
     /**
-     * تحديث العيادة المحددة في التخزين.
+     * Update the specified clinic in storage.
      *
      * @param UpdateClinicRequest $request
      * @param int $id
@@ -89,7 +93,7 @@ class ClinicController extends Controller
 
         if (!$clinic) {
             return $this->badResponse(
-                message: "لم يتم العثور على العيادة"
+                message: "Clinic not found"
             );
         }
 
@@ -99,13 +103,15 @@ class ClinicController extends Controller
         $clinic->update($updateData);
 
         return $this->okResponse(
-            message: "تم تحديث العيادة بنجاح",
-            data: $clinic
+            message: "Clinic updated successfully",
+            data: [
+                'data' => $clinic
+            ]
         );
     }
 
     /**
-     * إزالة العيادة المحددة من التخزين.
+     * Remove the specified clinic from storage.
      *
      * @param int $id
      * @return Response
@@ -116,14 +122,14 @@ class ClinicController extends Controller
 
         if (!$clinic) {
             return $this->badResponse(
-                message: "لم يتم العثور على العيادة"
+                message: "Clinic not found"
             );
         }
 
         $clinic->delete();
 
         return $this->okResponse(
-            message: "تم حذف العيادة بنجاح"
+            message: "Clinic deleted successfully"
         );
     }
 }
