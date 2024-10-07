@@ -126,7 +126,7 @@ class DoctorController extends Controller
         $doctor->update($updateData);
 
         $userData = $request->only(['email', 'password']);
-        $creationData['password'] = Hash::make($userData['password']);
+        if ( isset($userData['password']) ) $creationData['password'] = Hash::make($userData['password']);
         $doctor->user->update($userData);
 
         $doctor->availableTimes()
