@@ -20,6 +20,16 @@ class AvailableTimes extends Model
         'sun',
     ];
 
+    protected $casts = [
+        'mon' => 'array',
+        'tue' => 'array',
+        'wed' => 'array',
+        'thu' => 'array',
+        'fri' => 'array',
+        'sat' => 'array',
+        'sun' => 'array',
+    ];
+
     protected $attributes = [
         'mon' => 'NA',
         'tue' => 'NA',
