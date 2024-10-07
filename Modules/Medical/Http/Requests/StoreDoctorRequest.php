@@ -14,8 +14,18 @@ class StoreDoctorRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'          => 'required|string|min:1|max:255',
-            'clinicId'      =>  'required|integer|exists:clinics,id'
+            'name' => 'required|string|max:255',
+            'clinicId' => 'required|integer|exists:clinics,id',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8',
+            'availableTimes' => 'required|array',
+            'availableTimes.mon' => 'nullable|array',
+            'availableTimes.tue' => 'nullable|array',
+            'availableTimes.wed' => 'nullable|array',
+            'availableTimes.thu' => 'nullable|array',
+            'availableTimes.fri' => 'nullable|array',
+            'availableTimes.sat' => 'nullable|array',
+            'availableTimes.sun' => 'nullable|array',
         ];
     }
 

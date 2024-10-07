@@ -14,8 +14,18 @@ class UpdateDoctorRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'          => 'nullable|string|min:1|max:255',
-            'clinicId'      =>  'nullable|integer|exists:clinics,id'
+            'name' => 'nullable|string|max:255',
+            'clinicId' => 'nullable|integer|exists:clinics,id',
+            'email' => 'nullable|email|max:255|unique:users,email',
+            'password' => 'nullable|string|min:8',
+            'availableTimes' => 'nullable|array',
+            'availableTimes.mon' => 'nullable|array',
+            'availableTimes.tue' => 'nullable|array',
+            'availableTimes.wed' => 'nullable|array',
+            'availableTimes.thu' => 'nullable|array',
+            'availableTimes.fri' => 'nullable|array',
+            'availableTimes.sat' => 'nullable|array',
+            'availableTimes.sun' => 'nullable|array',
         ];
     }
 
