@@ -27,7 +27,7 @@ class ClinicController extends Controller
         return $this->okResponse(
             message: "تم استدعاء API بنجاح",
             data: [
-                'clinics' => $clinics
+                'data' => $clinics
             ]
         );
     }
