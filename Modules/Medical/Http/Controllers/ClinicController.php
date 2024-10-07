@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller;
 use Modules\Medical\Entities\Clinic;
 use Modules\Medical\Http\Requests\StoreClinicRequest;
 use Modules\Medical\Http\Requests\UpdateClinicRequest;
+use Modules\Medical\Transformers\ClinicResource;
 
 class ClinicController extends Controller
 {
@@ -27,7 +28,7 @@ class ClinicController extends Controller
         return $this->okResponse(
             message: "API call successful",
             data: [
-                'data' => $clinics
+                'data' => ClinicResource::collection($clinics)
             ]
         );
     }
@@ -51,7 +52,7 @@ class ClinicController extends Controller
         return $this->okResponse(
             message: "Clinic created successfully",
             data: [
-                'data' => $clinic
+                'data' => ClinicResource::make($clinic)
             ]
         );
     }
@@ -75,7 +76,7 @@ class ClinicController extends Controller
         return $this->okResponse(
             message: "API call successful",
             data: [
-                'data' => $clinic
+                'data' => ClinicResource::make($clinic)
             ]
         );
     }
@@ -105,7 +106,7 @@ class ClinicController extends Controller
         return $this->okResponse(
             message: "Clinic updated successfully",
             data: [
-                'data' => $clinic
+                'data' => ClinicResource::make($clinic)
             ]
         );
     }
