@@ -34,4 +34,5 @@ Route::prefix('/medical')->group(function () {
     Route::get('/nationalities', NationalityController::class);
 
     Route::apiResource('/appointments', AppointmentController::class);
+    Route::patch('/appointments/{id}/status', [AppointmentController::class, 'updateStatus']);
 });

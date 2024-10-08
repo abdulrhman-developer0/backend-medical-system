@@ -4,11 +4,13 @@ namespace Modules\Medical\Http\Controllers;
 
 use App\Facades\TDOFacade;
 use App\Traits\ApiResponses;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Medical\Entities\Appointment;
 use Modules\Medical\Http\Requests\StoreAppointmentRequest;
 use Modules\Medical\Http\Requests\UpdateAppointmentRequest;
+use Modules\Medical\Http\Requests\UpdateAppointmentStatusRequest;
 use Modules\Medical\Transformers\AppointmentResource;
 
 class AppointmentController extends Controller
@@ -71,6 +73,27 @@ class AppointmentController extends Controller
                 message: "Appointment not found"
             );
         }
+
+        return $this->okResponse(
+            message: "API call successful",
+            data: [
+                'data' => AppointmentResource::make($appointment)
+            ]
+        );
+    }
+
+    public function updateStatus(UpdateAppointmentStatusRequest $request, $id)
+    {
+        $appointment = Appointment::find($id);
+
+        if (!$appointment) {
+            return $this->badResponse(
+                message: "Appointment not found"
+            );
+        }
+
+        $appointment->status = $request->status;
+        $appointment->save();
 
         return $this->okResponse(
             message: "API call successful",
