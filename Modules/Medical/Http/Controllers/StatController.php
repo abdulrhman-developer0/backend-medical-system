@@ -25,7 +25,9 @@ class StatController extends Controller
 
         return $this->okResponse(
             message: "API success call",
-            data: $stats
+            data: [
+                'data' => $stats
+            ]
         );
     }
 }
