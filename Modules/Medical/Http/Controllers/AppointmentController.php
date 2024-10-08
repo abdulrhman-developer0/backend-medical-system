@@ -93,6 +93,7 @@ class AppointmentController extends Controller
         }
 
         $appointment->status = $request->status;
+        if ( $request->status == 'canceled' ) $appointment->canceled_log = $request->canceledLog;
         $appointment->save();
 
         return $this->okResponse(
