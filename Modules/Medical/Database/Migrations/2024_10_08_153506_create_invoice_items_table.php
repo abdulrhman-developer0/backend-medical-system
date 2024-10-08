@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('diagnoses', function (Blueprint $table) {
+        Schema::create('invoice_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('appointment_id');
-
-            $table->string('diagnosis');
-            $table->text('notes')->nullable();
-            $table->date('diagnosis_date');
+            $table->unsignedBigInteger('invoice_id');
+            $table->unsignedBigInteger('service_id');
+            $table->string('service_name');
+            $table->decimal('amount');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diagnoses');
+        Schema::dropIfExists('invoice_items');
     }
 };

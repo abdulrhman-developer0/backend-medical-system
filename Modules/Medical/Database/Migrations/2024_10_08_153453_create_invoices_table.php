@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('diagnoses', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('appointment_id');
-
-            $table->string('diagnosis');
-            $table->text('notes')->nullable();
-            $table->date('diagnosis_date');
+            $table->unsignedBigInteger('diagnosis_id');
+            $table->decimal('total_amount', 10, 2);
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diagnoses');
+        Schema::dropIfExists('invoices');
     }
 };

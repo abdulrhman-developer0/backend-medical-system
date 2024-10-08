@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Medical\Http\Controllers\AppointmentController;
 use Modules\Medical\Http\Controllers\ClinicController;
+use Modules\Medical\Http\Controllers\DiagnosisController;
 use Modules\Medical\Http\Controllers\DoctorController;
 use Modules\Medical\Http\Controllers\NationalityController;
 use Modules\Medical\Http\Controllers\PatientController;
@@ -35,4 +36,6 @@ Route::prefix('/medical')->group(function () {
 
     Route::apiResource('/appointments', AppointmentController::class);
     Route::patch('/appointments/{id}/status', [AppointmentController::class, 'updateStatus']);
+
+    Route::apiResource('/diagnosises', DiagnosisController::class);
 });

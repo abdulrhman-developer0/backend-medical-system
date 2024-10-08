@@ -14,7 +14,12 @@ class StoreDiagnosisRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'appointmentId' => 'required|exists:appointments,id',
+            'diagnosis' => 'required|string|max:255',
+            'notes' => 'nullable|string',
+            'diagnosisDate' => 'required|date',
+            'services'      => 'required|array',
+            'services.*'    => 'required|integer|exists:services,id',
         ];
     }
 
