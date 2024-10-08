@@ -16,7 +16,7 @@ class InvoiceResource extends JsonResource
     {
         return [
             'total'         => $this->total_amount,
-            'services'      => $this->invoiceItems-map(function($service) {
+            'services'      => $this->invoiceItems->map(function($service) {
                 return $service->only(['service_name', 'amount']);
             })
         ];
