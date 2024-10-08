@@ -14,6 +14,17 @@ class PatientReportResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'patient_id'            => $this->id,
+            'patient_name'          => $this->name,
+            'nationality'           => $this->nationality,
+            'age'                   => $this->age,
+            'gender'                => $this->gender,
+            'appointments'          => $this->appointments->map(function($appointment) {
+                return [
+                    ''
+                ];
+            })
+        ];
     }
 }
