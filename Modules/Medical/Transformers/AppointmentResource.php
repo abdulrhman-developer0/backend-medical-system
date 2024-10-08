@@ -24,6 +24,7 @@ class AppointmentResource extends JsonResource
             'time'              => $this->time,
             'notes'             => $this->notes,
             'status'            => $this->status,
+            'canceled_log'      => $this->canceled_log,
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
         ];
