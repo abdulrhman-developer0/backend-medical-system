@@ -29,7 +29,9 @@ class AuthController extends Controller
     {
         return $this->okResponse(
             message: "Get User data successfuly",
-            data: auth()->user()
+            data: [
+                'data'  => auth()->user()
+            ]
         );
     }
 
