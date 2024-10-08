@@ -31,7 +31,8 @@ class PatientController extends Controller
             $query
                 ->where('name', 'like', "%$search%")
                 ->orWhere('mobile', 'like', "%$search%")
-                ->orWhere('national_id', 'like', "%$search%");
+                ->orWhere('national_id', 'like', "%$search%")
+                ->orWhereId($search);
         }
 
         $patients = $query->get();
