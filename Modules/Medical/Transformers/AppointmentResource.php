@@ -1,0 +1,31 @@
+<?php
+
+namespace Modules\Medical\Transformers;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class AppointmentResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request
+     * @return array
+     */
+    public function toArray($request)
+    {
+        return [
+            'patient_id'        => $this->patient_id,
+            'patient_name'      => $this->patient?->name,
+            'doctor_id'         => $this->doctor_id,
+            'doctor_name'       => $this->doctor?->name,
+            'visit_type'        => $this->visit_type,
+            'date'              => $this->date,
+            'time'              => $this->time,
+            'notes'             => $this->notes,
+            'status'            => $this->status,
+            'created_at'        => $this->created_at,
+            'updated_at'        => $this->updated_at,
+        ];
+    }
+}
