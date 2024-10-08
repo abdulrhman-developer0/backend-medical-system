@@ -20,9 +20,14 @@ class PatientReportResource extends JsonResource
             'nationality'           => $this->nationality,
             'age'                   => $this->age,
             'gender'                => $this->gender,
-            'appointments'          => $this->appointments->map(function($appointment) {
+            'appointments'          => $this->appointments->map(function ($appointment) {
                 return [
-                    ''
+                    'doctor_name'   => $appointment->doctor->name,
+                    'date'          => $appointment->date,
+                    'time'          => $appointment->time,
+                    'vist_type'     => $appointment->visit_type,
+                    'status'        => $appointment->status,
+                    'canceled_log'  => $this->canceled_log,
                 ];
             })
         ];

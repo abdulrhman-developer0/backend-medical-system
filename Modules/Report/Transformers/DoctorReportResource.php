@@ -40,7 +40,7 @@ class DoctorReportResource extends JsonResource
                 'visit_type'    => $appointment->visit_type,
                 'patient_name'  => $appointment->patient?->name,
                 'status'        => $appointment->status,
-                'amount_collected' => $appointment->diagnosis?->inoice?->total_amount ?? 0
+                'amount_collected' => $appointment->dignosis?->invoice?->total_amount ?? 0
             ];
         });
     }

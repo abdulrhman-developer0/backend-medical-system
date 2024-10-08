@@ -11,6 +11,7 @@ use Modules\Medical\Entities\Patient;
 use Modules\Report\Transformers\DoctorReportCollection;
 use Modules\Report\Transformers\DoctorReportResource;
 use Modules\Report\Transformers\PatientReportResource;
+use Modules\Report\Transformers\ServiceReportResource;
 
 class ReportController extends Controller
 {
@@ -63,6 +64,31 @@ class ReportController extends Controller
             data: [
                 'patients_count' => $patients->count(),
                 'data' => PatientReportResource::collection($patients)
+            ]
+        );
+    }
+
+    public function patients(Request $request)
+    {
+
+        $query = Patient::query()
+        ->with('appointments');
+
+
+        if ( $request->serviceId ) {
+            $ids = explode(',', trim($request->patientId, ',') );
+            $query->whereIn('id', $ids);
+        }
+
+        $services = $query->get();
+
+
+
+        return $this->okResponse(
+            message: "API success call",
+            data: [
+                'patients_count' => $services->count(),
+                'data' => ServiceReportResource::collection($services)
             ]
         );
     }
