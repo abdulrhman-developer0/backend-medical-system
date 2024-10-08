@@ -22,4 +22,8 @@ Route::group([
 
 
     Route::get('/doctors', [ReportController::class, 'doctors']);
+
+    Route::get('/patients', [ReportController::class, 'patients']);
+
+    Route::get('/services', [ReportController::class, 'services']);
 });

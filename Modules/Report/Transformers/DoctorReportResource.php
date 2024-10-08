@@ -36,7 +36,7 @@ class DoctorReportResource extends JsonResource
 
             return [
                 'date'          => $appointment->date,
-                'type'          => $appointment->time,
+                'time'          => $appointment->time,
                 'vist_type'     => $appointment->vist_type,
                 'patient_name'  => $appointment->patient?->name,
                 'status'        => $appointment->status,

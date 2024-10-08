@@ -24,4 +24,9 @@ class Patient extends Model
     {
         return \Modules\Medical\Database\factories\PatientFactory::new();
     }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }
