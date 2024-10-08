@@ -9,6 +9,7 @@ use Modules\Medical\Http\Controllers\DoctorController;
 use Modules\Medical\Http\Controllers\NationalityController;
 use Modules\Medical\Http\Controllers\PatientController;
 use Modules\Medical\Http\Controllers\ServiceController;
+use Modules\Medical\Http\Controllers\StatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::group([
     'prefix'        => '/medical',
     'middleware'    => ['auth:sanctum']
 ], function () {
+
+    Route::get('/stats', [StatController::class, 'stats']);
 
     Route::apiResource('/clinics', ClinicController::class);
 
