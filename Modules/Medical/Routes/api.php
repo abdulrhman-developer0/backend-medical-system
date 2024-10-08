@@ -7,6 +7,7 @@ use Modules\Medical\Http\Controllers\ClinicController;
 use Modules\Medical\Http\Controllers\DoctorController;
 use Modules\Medical\Http\Controllers\NationalityController;
 use Modules\Medical\Http\Controllers\PatientController;
+use Modules\Medical\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,11 @@ use Modules\Medical\Http\Controllers\PatientController;
 |
 */
 
-Route::prefix('/medical')->group(function() {
+Route::prefix('/medical')->group(function () {
 
     Route::apiResource('/clinics', ClinicController::class);
+
+    Route::apiResource('/services', ServiceController::class);
 
     Route::apiResource('/doctors', DoctorController::class);
 
