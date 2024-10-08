@@ -1,4 +1,5 @@
 {
     "User": true,
-    "Medical": true
+    "Medical": true,
+    "Report": true
 }
