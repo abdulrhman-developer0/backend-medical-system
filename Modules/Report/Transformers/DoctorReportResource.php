@@ -20,6 +20,7 @@ class DoctorReportResource extends JsonResource
         $invoices     = $diagnosises?->pluck('invoice');
 
         return [
+            'doctor_id'             => $this->id,
             'doctor_name'           => $this->name,
             'clinic_name'           => $this->clinic?->name,
             'appointments_count'    => $appointments?->count(),

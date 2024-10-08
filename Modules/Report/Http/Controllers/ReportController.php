@@ -14,14 +14,22 @@ class ReportController extends Controller
 {
     use ApiResponses;
 
-    public function doctors()
+    public function doctors(Request $request)
     {
-        $doctors = Doctor::query()
-            ->with('clinic')
-            ->with('appointments')
-            ->get();
 
-        $doctors->each(function (Doctor $doctor) {});
+        $query = Doctor::query()
+        ->with('clinic')
+        ->with('appointments');
+
+
+        if ( $request->doctorId ) {
+            $ids = explode(',', trim($request->doctorId, ',') );
+            $query->whereIn('id', $ids);
+        }
+
+        $doctors = $query->get();
+
+
 
         return $this->okResponse(
             message: "API success call",
