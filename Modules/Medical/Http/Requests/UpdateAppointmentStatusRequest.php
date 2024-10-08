@@ -17,7 +17,8 @@ class UpdateAppointmentStatusRequest extends FormRequest
         $statusList = implode(',', Appointment::$statuses);
 
         return [
-            'status' => "required|string|in:$statusList"
+            'status'        => "required|string|in:$statusList",
+            'canceledLog'   => $this->status == 'canceled' ? 'required|string' : 'nullable|string',
         ];
     }
 

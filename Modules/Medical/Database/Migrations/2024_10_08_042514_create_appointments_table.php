@@ -23,6 +23,7 @@ return new class extends Migration
             $table->time('time')->nullable();
             $table->text('notes')->nullable();
             $table->enum('status', Appointment::$statuses);
+            $table->string('canceled_log')->nullable();
             $table->timestamps();
         });
     }

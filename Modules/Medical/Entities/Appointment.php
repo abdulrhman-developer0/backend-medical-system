@@ -25,6 +25,7 @@ class Appointment extends Model
 
     public static $statuses = [
         'pending',
+        'canceled',
         'current',
         'left',
         'paid'
