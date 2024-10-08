@@ -24,6 +24,7 @@ class AppointmentResource extends JsonResource
             'date'              => $this->date,
             'time'              => $this->time,
             'notes'             => $this->notes,
+            'diagnsis'          => $this->diagnosis? DiagnosisResource::make($this->diagnosis) : null,
             'status'            => $this->status,
             'canceled_log'      => $this->canceled_log,
             'created_at'        => $this->created_at,
