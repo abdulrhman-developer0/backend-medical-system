@@ -14,6 +14,11 @@ class ServiceReportResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'service_id'        => $this->id,
+            'service_name'      => $this->name,
+            'total_collected'   => $this->invoiceItems->sum('amount'),
+            'total_sales'       => $this->invoiceItems->count(),
+        ];
     }
 }

@@ -19,4 +19,9 @@ class Service extends Model
     {
         return \Modules\Medical\Database\factories\ServiceFactory::new();
     }
+
+    public function invoiceItems()
+    {
+        return $this->hasMany(InvoiceItem::class);
+    }
 }

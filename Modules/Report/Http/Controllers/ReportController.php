@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Medical\Entities\Doctor;
 use Modules\Medical\Entities\Patient;
+use Modules\Medical\Entities\Service;
 use Modules\Report\Transformers\DoctorReportCollection;
 use Modules\Report\Transformers\DoctorReportResource;
 use Modules\Report\Transformers\PatientReportResource;
@@ -21,12 +22,12 @@ class ReportController extends Controller
     {
 
         $query = Doctor::query()
-        ->with('clinic')
-        ->with('appointments');
+            ->with('clinic')
+            ->with('appointments');
 
 
-        if ( $request->doctorId ) {
-            $ids = explode(',', trim($request->doctorId, ',') );
+        if ($request->doctorId) {
+            $ids = explode(',', trim($request->doctorId, ','));
             $query->whereIn('id', $ids);
         }
 
@@ -47,11 +48,11 @@ class ReportController extends Controller
     {
 
         $query = Patient::query()
-        ->with('appointments');
+            ->with('appointments');
 
 
-        if ( $request->patientId ) {
-            $ids = explode(',', trim($request->patientId, ',') );
+        if ($request->patientId) {
+            $ids = explode(',', trim($request->patientId, ','));
             $query->whereIn('id', $ids);
         }
 
@@ -71,12 +72,16 @@ class ReportController extends Controller
     public function services(Request $request)
     {
 
-        $query = Patient::query()
-        ->with('appointments');
+        $query = Service::query()
+            ->with('invoiceItems', function ($q) use ($request) {
+                if ($request->date) {
+                    $q->whereDate('created_at', $request->date);
+                }
+            });
 
 
-        if ( $request->serviceId ) {
-            $ids = explode(',', trim($request->patientId, ',') );
+        if ($request->serviceId) {
+            $ids = explode(',', trim($request->serviceId, ','));
             $query->whereIn('id', $ids);
         }
 
@@ -87,7 +92,7 @@ class ReportController extends Controller
         return $this->okResponse(
             message: "API success call",
             data: [
-                'patients_count' => $services->count(),
+                'services_count' => $services->count(),
                 'data' => ServiceReportResource::collection($services)
             ]
         );
