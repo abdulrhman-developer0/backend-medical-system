@@ -2,8 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Modules\Medical\Http\Controllers\AppointmentController;
 use Modules\Medical\Http\Controllers\ClinicController;
 use Modules\Medical\Http\Controllers\DoctorController;
+use Modules\Medical\Http\Controllers\NationalityController;
+use Modules\Medical\Http\Controllers\PatientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +24,11 @@ Route::prefix('/medical')->group(function() {
     Route::apiResource('/clinics', ClinicController::class);
 
     Route::apiResource('/doctors', DoctorController::class);
+
+    Route::apiResource('/patients', PatientController::class);
+
+
+    Route::get('/nationalities', NationalityController::class);
+
+    Route::apiResource('/appointments', AppointmentController::class);
 });

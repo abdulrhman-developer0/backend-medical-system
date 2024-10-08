@@ -18,6 +18,7 @@ class MedicalDatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call([
+            NationalityTableSeeder::class,
             ClinicTableSeeder::class,
             DoctorTableSeeder::class,
         ]);
