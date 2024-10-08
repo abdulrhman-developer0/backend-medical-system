@@ -23,9 +23,15 @@ class DoctorController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $doctors = Doctor::all();
+        $query = Doctor::query();
+
+        if ( $request->clinicId ) {
+            $query->where('clinic_id', $request->clinicId);
+        }
+
+        $doctors = $query->get();
 
         return $this->okResponse(
             message: "API call successful",
