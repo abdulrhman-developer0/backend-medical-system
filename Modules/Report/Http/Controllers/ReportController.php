@@ -68,7 +68,7 @@ class ReportController extends Controller
         );
     }
 
-    public function patients(Request $request)
+    public function services(Request $request)
     {
 
         $query = Patient::query()
