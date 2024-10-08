@@ -14,6 +14,9 @@ class DiagnosisResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $data = parent::toArray($request);
+        $data['invoice'] =  InvoiceResource::make($this->invoice);
+
+        return $data;
     }
 }
