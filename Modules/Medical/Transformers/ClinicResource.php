@@ -14,8 +14,6 @@ class ClinicResource extends JsonResource
      */
     public function toArray($request)
     {
-        $doctor = $this->withCount('doctors')
-            ->get();
 
         return [
             'id'         => $this->id,

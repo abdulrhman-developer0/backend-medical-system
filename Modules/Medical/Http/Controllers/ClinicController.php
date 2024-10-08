@@ -23,7 +23,8 @@ class ClinicController extends Controller
      */
     public function index()
     {
-        $clinics = Clinic::all();
+        $clinics = Clinic::withCount('doctors')
+            ->get();
 
         return $this->okResponse(
             message: "API call successful",
