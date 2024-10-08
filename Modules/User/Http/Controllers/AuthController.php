@@ -57,6 +57,7 @@ class AuthController extends Controller
         return $this->okResponse(
             message: "Create token successfuly",
             data: [
+                'type'   => $user->type,
                 'token'  => $token->plainTextToken
             ]
         );

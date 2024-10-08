@@ -21,7 +21,10 @@ use Modules\Medical\Http\Controllers\ServiceController;
 |
 */
 
-Route::prefix('/medical')->group(function () {
+Route::group([
+    'prefix'        => '/medical',
+    'middleware'    => ['auth:sanctum']
+], function () {
 
     Route::apiResource('/clinics', ClinicController::class);
 
