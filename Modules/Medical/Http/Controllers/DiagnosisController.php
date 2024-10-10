@@ -105,7 +105,8 @@ class DiagnosisController extends Controller
                     'service_name' => $doctor->specialty->name,
                     'tax'          => ($cost / 100)  * $taxRate,
                     'amount'        => $cost,
-                ])->merge($invoiceItems);
+                ])->merge($invoiceItems)
+                    ->toArray();
             }
 
             $totalTaxes   = $invoiceItems->sum('tax');
