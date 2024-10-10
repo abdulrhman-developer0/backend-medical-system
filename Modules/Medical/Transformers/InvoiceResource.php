@@ -25,7 +25,7 @@ class InvoiceResource extends JsonResource
             'national_id'   => $patient->national_id,
             'age'           => $patient->age,
             'hijri_date_of_birth' => $patient->date_of_birth,
-            'gregorian_date_of_birth' => now()->subYears($patient->age),
+            'gregorian_date_of_birth' => now()->subYears($patient->age)->format('Y-m-d'),
             'mobile'        => $patient->mobile,
             'address'       => $patient->address,
             'visit_type'     => $appointment->visit_type_ar,
