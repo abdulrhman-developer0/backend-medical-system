@@ -17,6 +17,7 @@ class Appointment extends Model
         'date',
         'time',
         'notes',
+        'type_of_payment',
     ];
 
     protected $attributes = [
@@ -52,7 +53,7 @@ class Appointment extends Model
         $types = Setting::find('paymentTypes')?->value ?? [];
 
         foreach ($types as $type) {
-            if ($this->type_of_payment == $type['nameEn']) return $type['nameAr'];
+            if ( null == $type['nameEn']) return $type['nameAr'];
         }
 
         return 'none';
