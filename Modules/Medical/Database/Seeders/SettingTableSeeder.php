@@ -19,9 +19,9 @@ class SettingTableSeeder extends Seeder
 
         $settings = [
             'visitTypes' => [
-                'examination' => 'كشف',
-                'followUp' => 'متابعة',
-                'emergency' => 'طوارئ',
+                'examination' => ['nameEn' => 'examination' , 'nameAr' => 'كشف'],
+                'followUp' => ['nameEn' => 'followUp' , 'nameAr' => 'متابعة'],
+                'emergency' => ['nameEn' => 'emergency' , 'nameAr' => 'طوارئ'],
             ],
             // 'workingHours' => [
             //     'weekDays' => [
