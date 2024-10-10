@@ -54,7 +54,7 @@ class AppointmentController extends Controller
         if (in_array($user->type, ['reception', 'admin'])) {
             $appointments = $query->get();
         } elseif ($user->type == 'doctor') {
-            $appointments = $query->whereDoctorId($user->id)
+            $appointments = $query->whereDoctorId($user->doctor->id)
                 ->get();
         } else {
             $appointments = new Collection();
