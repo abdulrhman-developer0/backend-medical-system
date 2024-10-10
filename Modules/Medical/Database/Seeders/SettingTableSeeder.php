@@ -23,6 +23,10 @@ class SettingTableSeeder extends Seeder
                 ['nameEn' => 'followUp', 'nameAr' => 'متابعة'],
                 ['nameEn' => 'emergency', 'nameAr' => 'طوارئ'],
             ],
+            'paymentTypes' => [
+                ['nameEn' => 'cash', 'nameAr' => 'نقدا'],
+                ['nameEn' => 'network', 'nameAr' => 'شبكة'],
+            ],
             // 'workingHours' => [
             //     'weekDays' => [
             //         'sunday' => 'الأحد',
