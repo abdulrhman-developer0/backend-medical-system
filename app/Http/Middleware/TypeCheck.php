@@ -16,7 +16,7 @@ class TypeCheck
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, array ...$types): Response
+    public function handle(Request $request, Closure $next, string ...$types): Response
     {
         $user = $request->user();
 
@@ -26,8 +26,9 @@ class TypeCheck
             );
         }
 
+
         if (! in_array($user->type, $types)) {
-            $strTypes = implode(', ', $types);
+            $strTypes = '(' . implode(', ', $types) . ',)';
             return $this->badResponse(
                 message: "your account type is {$user->type} not in {$strTypes}"
             );

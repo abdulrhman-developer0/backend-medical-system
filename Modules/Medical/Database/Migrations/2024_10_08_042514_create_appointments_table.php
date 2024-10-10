@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\App;
 use Modules\Medical\Entities\Appointment;
 
 return new class extends Migration
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->enum('status', Appointment::$statuses);
             $table->string('canceled_log')->nullable();
+            $table->enum('type_of_payment', Appointment::$paymentTypes)->nullable();
             $table->timestamps();
         });
     }

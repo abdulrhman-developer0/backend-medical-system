@@ -11,12 +11,18 @@ class Invoice extends Model
 
     protected $fillable = [
         'diagnosis_id',
+        'total_taxes',
         'total_amount'
     ];
 
     protected static function newFactory()
     {
         return \Modules\Medical\Database\factories\InvoiceFactory::new();
+    }
+
+    public function diagnosis()
+    {
+        return $this->belongsTo(Diagnosis::class);
     }
 
     public function invoiceItems()

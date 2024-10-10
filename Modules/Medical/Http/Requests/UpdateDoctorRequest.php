@@ -3,6 +3,7 @@
 namespace Modules\Medical\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\Medical\Entities\Doctor;
 
 class UpdateDoctorRequest extends FormRequest
 {
@@ -13,11 +14,17 @@ class UpdateDoctorRequest extends FormRequest
      */
     public function rules()
     {
+        $statuses = implode(',', Doctor::$statuses);
+
         return [
             'name' => 'nullable|string|max:255',
             'clinicId' => 'nullable|integer|exists:clinics,id',
+            'specialtyId' => 'nullable|integer|exists:specialties,id',
             'email' => 'nullable|email|max:255',
             'password' => 'nullable|string|min:8',
+            'status'   => "nullable|string|in:$statuses",
+
+
             'availableTimes' => 'nullable|array',
             'availableTimes.mon' => 'nullable|array',
             'availableTimes.tue' => 'nullable|array',

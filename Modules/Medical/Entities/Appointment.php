@@ -31,6 +31,11 @@ class Appointment extends Model
         'paid'
     ];
 
+    public static $paymentTypes = [
+        'network',
+        'cash'
+    ];
+
     protected static function newFactory()
     {
         return \Modules\Medical\Database\factories\AppointmentFactory::new();

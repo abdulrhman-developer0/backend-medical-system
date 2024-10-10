@@ -13,6 +13,7 @@ class InvoiceItem extends Model
         'invoice_id',
         'service_id',
         'service_name',
+        'tax',
         'amount'
     ];
 

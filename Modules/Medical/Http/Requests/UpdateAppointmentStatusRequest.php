@@ -16,10 +16,20 @@ class UpdateAppointmentStatusRequest extends FormRequest
     {
         $statusList = implode(',', Appointment::$statuses);
 
-        return [
+        $rules = [
             'status'        => "required|string|in:$statusList",
-            'canceledLog'   => $this->status == 'canceled' ? 'required|string' : 'nullable|string',
         ];
+
+        if ($this->satus == 'canceled') {
+            $rules['canceledLog']   = 'required|string';
+        }
+
+        if ($this->status == 'paid') {
+            $paymentTypes = implode(',', Appointment::$paymentTypes);
+            $rules['typeOfPayment'] = "required|string|in:$paymentTypes";
+        }
+
+        return $rules;
     }
 
     /**

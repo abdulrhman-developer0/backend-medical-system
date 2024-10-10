@@ -16,6 +16,16 @@ class ServiceController extends Controller
 {
     use ApiResponses;
 
+    public function __construct()
+    {
+        $this->middleware(['type:admin'])
+            ->only([
+                'store',
+                'update',
+                'destroy'
+            ]);
+    }
+
     /**
      * Display a list of clinics.
      *
@@ -23,7 +33,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::all();
+        $services = Service::query()
+            ->latest()
+            ->get();
 
         return $this->okResponse(
             message: "API call successful",

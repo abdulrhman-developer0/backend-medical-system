@@ -9,6 +9,8 @@ use Modules\Medical\Http\Controllers\DoctorController;
 use Modules\Medical\Http\Controllers\NationalityController;
 use Modules\Medical\Http\Controllers\PatientController;
 use Modules\Medical\Http\Controllers\ServiceController;
+use Modules\Medical\Http\Controllers\SettingController;
+use Modules\Medical\Http\Controllers\SpecialtyController;
 use Modules\Medical\Http\Controllers\StatController;
 
 /*
@@ -27,11 +29,18 @@ Route::group([
     'middleware'    => ['auth:sanctum']
 ], function () {
 
-    Route::get('/stats', [StatController::class, 'stats']);
+    Route::get('/stats', [StatController::class, 'stats'])
+        ->middleware(['type:admin']);
+
+    Route::get('/settings', [SettingController::class, 'index']);
+    Route::put('/settings', [SettingController::class, 'update'])
+        ->middleware(['type:admin']);
 
     Route::apiResource('/clinics', ClinicController::class);
 
     Route::apiResource('/services', ServiceController::class);
+
+    Route::apiResource('/specialties', SpecialtyController::class);
 
     Route::apiResource('/doctors', DoctorController::class);
 

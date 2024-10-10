@@ -4,15 +4,13 @@ namespace Modules\Medical\Http\Controllers;
 
 use App\Facades\TDOFacade;
 use App\Traits\ApiResponses;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Medical\Entities\Clinic;
-use Modules\Medical\Http\Requests\StoreClinicRequest;
-use Modules\Medical\Http\Requests\UpdateClinicRequest;
-use Modules\Medical\Transformers\ClinicResource;
+use Modules\Medical\Entities\Specialty;
+use Modules\Medical\Http\Requests\StoreSpecialtyRequest;
+use Modules\Medical\Http\Requests\UpdateSpecialtyRequest;
+use Modules\Medical\Transformers\SpecialtyResource;
 
-class ClinicController extends Controller
+class SpecialtyController extends Controller
 {
     use ApiResponses;
 
@@ -33,15 +31,14 @@ class ClinicController extends Controller
      */
     public function index()
     {
-        $clinics = Clinic::query()
+        $specialtys = Specialty::query()
             ->latest()
-            ->withCount('doctors')
             ->get();
 
         return $this->okResponse(
             message: "API call successful",
             data: [
-                'data' => ClinicResource::collection($clinics)
+                'data' => SpecialtyResource::collection($specialtys)
             ]
         );
     }
@@ -49,10 +46,10 @@ class ClinicController extends Controller
     /**
      * Store a newly created clinic in storage.
      *
-     * @param StoreClinicRequest $request
+     * @param StoreSpecialtyRequest $request
      * @return Response
      */
-    public function store(StoreClinicRequest $request)
+    public function store(StoreSpecialtyRequest $request)
     {
         $tdo = TDOFacade::make($request);
 
@@ -60,12 +57,12 @@ class ClinicController extends Controller
             ->except([])
             ->toArray();
 
-        $clinic = Clinic::create($creationData);
+        $specialty = Specialty::create($creationData);
 
         return $this->okResponse(
-            message: "Clinic created successfully",
+            message: "Specialty created successfully",
             data: [
-                'data' => ClinicResource::make($clinic)
+                'data' => SpecialtyResource::make($specialty)
             ]
         );
     }
@@ -78,18 +75,18 @@ class ClinicController extends Controller
      */
     public function show($id)
     {
-        $clinic = Clinic::find($id);
+        $specialty = Specialty::find($id);
 
-        if (!$clinic) {
+        if (!$specialty) {
             return $this->badResponse(
-                message: "Clinic not found"
+                message: "Specialty not found"
             );
         }
 
         return $this->okResponse(
             message: "API call successful",
             data: [
-                'data' => ClinicResource::make($clinic)
+                'data' => SpecialtyResource::make($specialty)
             ]
         );
     }
@@ -97,29 +94,29 @@ class ClinicController extends Controller
     /**
      * Update the specified clinic in storage.
      *
-     * @param UpdateClinicRequest $request
+     * @param UpdateSpecialtyRequest $request
      * @param int $id
      * @return Response
      */
-    public function update(UpdateClinicRequest $request, $id)
+    public function update(UpdateSpecialtyRequest $request, $id)
     {
-        $clinic = Clinic::find($id);
+        $specialty = Specialty::find($id);
 
-        if (!$clinic) {
+        if (!$specialty) {
             return $this->badResponse(
-                message: "Clinic not found"
+                message: "Specialty not found"
             );
         }
 
         $tdo = TDOFacade::make($request);
         $updateData = collect($tdo->asSnake())->except([])->toArray();
 
-        $clinic->update($updateData);
+        $specialty->update($updateData);
 
         return $this->okResponse(
-            message: "Clinic updated successfully",
+            message: "Specialty updated successfully",
             data: [
-                'data' => ClinicResource::make($clinic)
+                'data' => SpecialtyResource::make($specialty)
             ]
         );
     }
@@ -132,18 +129,18 @@ class ClinicController extends Controller
      */
     public function destroy($id)
     {
-        $clinic = Clinic::find($id);
+        $specialty = Specialty::find($id);
 
-        if (!$clinic) {
+        if (!$specialty) {
             return $this->badResponse(
-                message: "Clinic not found"
+                message: "Specialty not found"
             );
         }
 
-        $clinic->delete();
+        $specialty->delete();
 
         return $this->okResponse(
-            message: "Clinic deleted successfully"
+            message: "Specialty deleted successfully"
         );
     }
 }

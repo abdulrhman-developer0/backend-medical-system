@@ -16,6 +16,20 @@ class PatientController extends Controller
 {
     use ApiResponses;
 
+    public function __construct()
+    {
+        $this->middleware(['type:reception,doctor,admin'])
+            ->only([
+                'store',
+                'update',
+            ]);
+
+            $this->middleware(['type:admin'])
+            ->only([
+                'destroy'
+            ]);
+    }
+
     /**
      * Display a list of clinics.
      *
@@ -23,7 +37,8 @@ class PatientController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Patient::query();
+        $query = Patient::query()
+            ->latest();
 
         if ($request->search) {
             $search = $request->search;

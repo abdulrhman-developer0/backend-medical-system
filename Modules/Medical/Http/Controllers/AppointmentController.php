@@ -5,6 +5,8 @@ namespace Modules\Medical\Http\Controllers;
 use App\Facades\TDOFacade;
 use App\Traits\ApiResponses;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Medical\Entities\Appointment;
@@ -17,14 +19,46 @@ class AppointmentController extends Controller
 {
     use ApiResponses;
 
+    public function __construct()
+    {
+        $this->middleware(['type:admin'])
+            ->only([
+                'update',
+                'destroy'
+            ]);
+
+        $this->middleware(['type:reception'])
+            ->only([
+                'store',
+                'update',
+            ]);
+    }
+
     /**
      * Display a list of clinics.
      *
      * @return Response
      */
-    public function index()
+    public function index(HttpRequest $request)
     {
-        $appointments = Appointment::all();
+        $query = Appointment::latest();
+
+        if ($request->statuses) {
+            // "pending,current,left,"
+            $statuses = explode(',', trim($request->statuses, ','));
+            $query->whereIn('status', $statuses);
+        }
+
+        $user = $request->user();
+
+        if (in_array($user->type, ['reception', 'admin'])) {
+            $appointments = $query->get();
+        } elseif ($user->type == 'doctor') {
+            $appointments = $query->whereDoctorId($user->id)
+                ->get();
+        } else {
+            $appointments = new Collection();
+        }
 
         return $this->okResponse(
             message: "API call successful",
@@ -92,9 +126,21 @@ class AppointmentController extends Controller
             );
         }
 
+        $status = $request->status;
+
         $appointment->status = $request->status;
-        if ( $request->status == 'canceled' ) $appointment->canceled_log = $request->canceledLog;
+
+        if ( $request->status == 'canceled' ) {
+            $appointment->canceled_log = $request->canceledLog;
+        }
+
+        if ( $request->status == 'paid' ) {
+            $appointment->type_of_payment = $request->typeOfPayment;
+        }
+
         $appointment->save();
+
+
 
         return $this->okResponse(
             message: "API call successful",

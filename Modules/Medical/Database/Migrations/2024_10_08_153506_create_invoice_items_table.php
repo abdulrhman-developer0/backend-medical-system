@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('invoice_id');
-            $table->unsignedBigInteger('service_id');
+            $table->unsignedBigInteger('service_id')->nullable();
             $table->string('service_name');
+            $table->decimal('tax');
             $table->decimal('amount');
             $table->timestamps();
         });

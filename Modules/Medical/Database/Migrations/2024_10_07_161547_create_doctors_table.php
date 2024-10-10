@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Medical\Entities\Doctor;
 
 return new class extends Migration
 {
@@ -17,7 +18,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('clinic_id');
+            $table->unsignedBigInteger('specialty_id');
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->enum('status', Doctor::$statuses);
             $table->timestamps();
         });
     }

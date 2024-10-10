@@ -4,7 +4,7 @@ namespace Modules\Medical\Transformers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DiagnosisResource extends JsonResource
+class SpecialtyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,9 +14,6 @@ class DiagnosisResource extends JsonResource
      */
     public function toArray($request)
     {
-        $data = parent::toArray($request);
-        $data['invoice'] =  $this->invoice? InvoiceResource::make($this->invoice) : null;
-
-        return $data;
+        return $this->only(['id', 'name', 'examination_cost']);
     }
 }

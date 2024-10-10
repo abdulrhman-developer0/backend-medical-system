@@ -5,7 +5,6 @@ namespace Modules\Medical\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Modules\User\Entities\User;
 
@@ -16,7 +15,14 @@ class Doctor extends Model
     protected $fillable = [
         'name',
         'clinic_id',
-        'user_id'
+        'specialty_id',
+        'user_id',
+        'status'
+    ];
+
+    public static $statuses = [
+        'active',
+        'inactive',
     ];
 
     protected static function newFactory()
@@ -27,6 +33,11 @@ class Doctor extends Model
     public function clinic(): BelongsTo
     {
         return $this->belongsTo(Clinic::class);
+    }
+
+    public function specialty()
+    {
+        return $this->belongsTo(Specialty::class);
     }
 
     public function user(): BelongsTo

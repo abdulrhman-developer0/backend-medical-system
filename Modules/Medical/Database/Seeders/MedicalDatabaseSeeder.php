@@ -4,7 +4,6 @@ namespace Modules\Medical\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Medical\Entities\Clinic;
 
 class MedicalDatabaseSeeder extends Seeder
 {
@@ -18,7 +17,10 @@ class MedicalDatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call([
+            SettingTableSeeder::class,
             NationalityTableSeeder::class,
+            SpecialtySeederTableSeeder::class,
+            ServiceTableSeeder::class,
             ClinicTableSeeder::class,
             DoctorTableSeeder::class,
         ]);

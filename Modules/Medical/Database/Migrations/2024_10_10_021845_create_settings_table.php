@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('invoices', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('diagnosis_id');
-            $table->decimal('total_taxes');
-            $table->decimal('total_amount', 10, 2);
-            $table->timestamps();
+        Schema::create('settings', function (Blueprint $table) {
+            $table->string('key')->unique();
+            $table->json('value');
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('settings');
     }
 };

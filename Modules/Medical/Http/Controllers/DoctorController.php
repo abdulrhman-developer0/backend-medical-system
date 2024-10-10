@@ -18,6 +18,16 @@ class DoctorController extends Controller
 {
     use ApiResponses;
 
+    public function __construct()
+    {
+        $this->middleware(['type:admin'])
+            ->only([
+                'store',
+                'update',
+                'destroy'
+            ]);
+    }
+
     /**
      * Display a list of doctors.
      *
@@ -25,9 +35,10 @@ class DoctorController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Doctor::query();
+        $query = Doctor::query()
+            ->latest();
 
-        if ( $request->clinicId ) {
+        if ($request->clinicId) {
             $query->where('clinic_id', $request->clinicId);
         }
 
@@ -132,7 +143,7 @@ class DoctorController extends Controller
         $doctor->update($updateData);
 
         $userData = $request->only(['email', 'password']);
-        if ( isset($userData['password']) ) $creationData['password'] = Hash::make($userData['password']);
+        if (isset($userData['password'])) $creationData['password'] = Hash::make($userData['password']);
         $creationData['type'] = 'doctor';
         $doctor->user?->update($userData);
 

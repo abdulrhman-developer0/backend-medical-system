@@ -5,6 +5,7 @@ namespace Modules\Medical\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Medical\Entities\Doctor;
+use Modules\User\Entities\User;
 
 class DoctorTableSeeder extends Seeder
 {
@@ -16,68 +17,34 @@ class DoctorTableSeeder extends Seeder
             [
                 'name' => 'د. أحمد الفارسي',
                 'clinic_id' => 1,
+                'status' => 'active',
+                'specialty_id' => 1, // Assuming this is the ID for 'الطبيب العام'
                 'available_times' => [
-                    'mon' => '09:00 AM - 12:00 PM, 02:00 PM - 05:00 PM',
-                    'tue' => 'NA',
-                    'wed' => '10:00 AM - 01:00 PM',
-                    'thu' => 'NA',
-                    'fri' => '11:00 AM - 03:00 PM',
-                    'sat' => 'NA',
-                    'sun' => 'NA',
+                    'mon' => ['start' => '9:00 AM', 'end' => '5:00 PM'],
+                    'tue' => ['start' => '9:00 AM', 'end' => '5:00 PM'],
+                    'wed' => ['start' => 'NA', 'end' => 'NA'],
+                    'thu' => ['start' => '9:00 AM', 'end' => '5:00 PM'],
+                    'fri' => ['start' => 'NA', 'end' => 'NA'],
+                    'sat' => ['start' => '9:00 AM', 'end' => '2:00 PM'],
+                    'sun' => ['start' => 'NA', 'end' => 'NA'],
                 ],
             ],
             [
                 'name' => 'د. سارة محمد',
                 'clinic_id' => 2,
+                'status' => 'active',
+                'specialty_id' => 2, // Assuming this is the ID for 'طبيب الأسنان'
                 'available_times' => [
-                    'mon' => 'NA',
-                    'tue' => '09:30 AM - 11:30 AM, 04:00 PM - 06:00 PM',
-                    'wed' => 'NA',
-                    'thu' => '10:30 AM - 02:30 PM',
-                    'fri' => 'NA',
-                    'sat' => 'NA',
-                    'sun' => 'NA',
+                    'mon' => ['start' => '8:00 AM', 'end' => '4:00 PM'],
+                    'tue' => ['start' => '8:00 AM', 'end' => '4:00 PM'],
+                    'wed' => ['start' => 'NA', 'end' => 'NA'],
+                    'thu' => ['start' => '8:00 AM', 'end' => '4:00 PM'],
+                    'fri' => ['start' => 'NA', 'end' => 'NA'],
+                    'sat' => ['start' => '8:00 AM', 'end' => '2:00 PM'],
+                    'sun' => ['start' => 'NA', 'end' => 'NA'],
                 ],
             ],
-            [
-                'name' => 'د. عمر خالد',
-                'clinic_id' => 1,
-                'available_times' => [
-                    'mon' => '08:00 AM - 11:00 AM',
-                    'tue' => 'NA',
-                    'wed' => '09:00 AM - 12:00 PM, 05:00 PM - 07:00 PM',
-                    'thu' => 'NA',
-                    'fri' => 'NA',
-                    'sat' => '10:00 AM - 02:00 PM',
-                    'sun' => 'NA',
-                ],
-            ],
-            [
-                'name' => 'د. ليلى ناصر',
-                'clinic_id' => 3,
-                'available_times' => [
-                    'mon' => 'NA',
-                    'tue' => '09:00 AM - 12:00 PM, 03:00 PM - 05:00 PM',
-                    'wed' => 'NA',
-                    'thu' => '10:00 AM - 01:00 PM',
-                    'fri' => 'NA',
-                    'sat' => '09:00 AM - 11:00 AM',
-                    'sun' => 'NA',
-                ],
-            ],
-            [
-                'name' => 'د. فهد بن زايد',
-                'clinic_id' => 2,
-                'available_times' => [
-                    'mon' => '10:00 AM - 01:00 PM',
-                    'tue' => 'NA',
-                    'wed' => '11:00 AM - 02:00 PM',
-                    'thu' => 'NA',
-                    'fri' => '09:00 AM - 12:00 PM',
-                    'sat' => 'NA',
-                    'sun' => 'NA',
-                ],
-            ],
+            // Add other doctors similarly
         ]);
 
         $doctors->each(function ($doctorData) {
@@ -85,8 +52,16 @@ class DoctorTableSeeder extends Seeder
                 ->except(['available_times'])
                 ->toArray();
 
+
             $doctor = Doctor::create($data);
 
+            $user = User::factory()->create([
+                'email' => "{$doctor->id}@domain.com",
+                'type'  => 'doctor'
+            ]);
+
+            ;$doctor->user_id = $user->id;
+            $doctor->save();
 
             $doctor->availableTimes()->create(
                 $doctorData['available_times']
