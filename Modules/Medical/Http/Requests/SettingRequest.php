@@ -15,7 +15,7 @@ class SettingRequest extends FormRequest
     public function rules()
     {
         $rules = [];
-        foreach ( Setting::get(['key']) as $setting ) $rules[$setting->key] = 'required|array';
+        foreach ( Setting::get(['key']) as $setting ) $rules[$setting->key] = 'nullable|array';
 
         return $rules;
     }
