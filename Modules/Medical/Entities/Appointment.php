@@ -36,6 +36,28 @@ class Appointment extends Model
         'cash'
     ];
 
+    public function getVisitTypeArAttribute()
+    {
+        $types = Setting::find('visitTypes')?->value ?? [];
+
+        foreach ($types as $type) {
+            if ($this->visit_type == $type['nameEn']) return $type['nameAr'];
+        }
+
+        return 'none';
+    }
+
+    public function getTypeOfPaymentAttribute()
+    {
+        $types = Setting::find('paymentTypes')?->value ?? [];
+
+        foreach ($types as $type) {
+            if ($this->type_of_payment == $type['nameEn']) return $type['nameAr'];
+        }
+
+        return 'none';
+    }
+
     protected static function newFactory()
     {
         return \Modules\Medical\Database\factories\AppointmentFactory::new();
