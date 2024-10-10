@@ -46,6 +46,7 @@ class SettingTableSeeder extends Seeder
                 'fax' => '0123456788',
             ],
             'invoiceSettings' => [
+                'complexName' => 'مجمع سندس الطبي',
                 'currency' => 'جنيه',
                 'taxRate' => 15,
             ],

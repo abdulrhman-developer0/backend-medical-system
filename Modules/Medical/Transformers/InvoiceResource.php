@@ -28,10 +28,10 @@ class InvoiceResource extends JsonResource
             'gregorian_date_of_birth' => now()->subYears($patient->age),
             'mobile'        => $patient->mobile,
             'address'       => $patient->address,
-            'visit_type'     => $appointment->visit_type,
+            'visit_type'     => $appointment->visit_type_ar,
             'doctor_name'   => $doctor->name,
             'clinic_name'   => $doctor->clinic->name,
-            'type_of_payment'   => $appointment->type_of_payment,
+            'type_of_payment'   => $appointment->type_of_payment_ar,
             'taxes'         => $this->total_taxes,
             'total'         => $this->total_amount,
             'services'      => $this->invoiceItems->map(function ($service) {
