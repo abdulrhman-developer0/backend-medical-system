@@ -42,18 +42,18 @@ class Appointment extends Model
         $types = Setting::find('visitTypes')?->value ?? [];
 
         foreach ($types as $type) {
-            if ($this->visit_type == $type['nameEn']) return $type['nameAr'];
+            if ($this->attributes['visit_type'] == $type['nameEn']) return $type['nameAr'];
         }
 
         return 'none';
     }
 
-    public function getTypeOfPaymentAttribute()
+    public function getTypeOfPaymentAttribute($t)
     {
         $types = Setting::find('paymentTypes')?->value ?? [];
 
         foreach ($types as $type) {
-            if ( null == $type['nameEn']) return $type['nameAr'];
+            if ( $this->attributes['type_of_payment'] == $type['nameEn']) return $type['nameAr'];
         }
 
         return 'none';
