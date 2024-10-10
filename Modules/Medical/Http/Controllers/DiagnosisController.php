@@ -53,11 +53,11 @@ class DiagnosisController extends Controller
      */
     public function store(StoreDiagnosisRequest $request)
     {
-        if (Diagnosis::whereAppointmentId($request->appointmentId)->exists()) {
-            return $this->badResponse(
-                message: "لا يمكنك تشخيص هذا الججز مرة اخرة يمكنك تعديله فقط"
-            );
-        }
+        // if (Diagnosis::whereAppointmentId($request->appointmentId)->exists()) {
+        //     return $this->badResponse(
+        //         message: "لا يمكنك تشخيص هذا الججز مرة اخرة يمكنك تعديله فقط"
+        //     );
+        // }
 
         $tdo = TDOFacade::make($request);
 
