@@ -32,6 +32,7 @@ Route::group([
     Route::get('/stats', [StatController::class, 'stats'])
         ->middleware(['type:admin']);
 
+
     Route::get('/settings', [SettingController::class, 'index']);
     Route::put('/settings', [SettingController::class, 'update'])
         ->middleware(['type:admin']);
@@ -50,7 +51,11 @@ Route::group([
     Route::get('/nationalities', NationalityController::class);
 
     Route::apiResource('/appointments', AppointmentController::class);
-    Route::patch('/appointments/{id}/status', [AppointmentController::class, 'updateStatus']);
+    Route::patch('/appointments/{id}/status', [AppointmentController::class, 'updateStatus'])
+        ->middleware(['type:reception,doctor']);
+
+    Route::patch('/appointments/{id}/discount', [AppointmentController::class, 'discount'])
+        ->middleware(['type:admin']);
 
     Route::apiResource('/diagnosises', DiagnosisController::class);
 });

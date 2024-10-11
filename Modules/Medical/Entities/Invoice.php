@@ -12,6 +12,7 @@ class Invoice extends Model
     protected $fillable = [
         'diagnosis_id',
         'total_taxes',
+        'discount',
         'total_amount'
     ];
 

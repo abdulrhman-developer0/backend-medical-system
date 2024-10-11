@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('diagnosis_id');
             $table->decimal('total_taxes');
+            $table->float('discount');
             $table->decimal('total_amount', 10, 2);
             $table->timestamps();
         });

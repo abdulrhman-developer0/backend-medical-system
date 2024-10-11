@@ -4,9 +4,8 @@ namespace Modules\Medical\Http\Controllers;
 
 use App\Facades\TDOFacade;
 use App\Traits\ApiResponses;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Medical\Entities\Appointment;
@@ -39,7 +38,7 @@ class AppointmentController extends Controller
      *
      * @return Response
      */
-    public function index(HttpRequest $request)
+    public function index(Request $request)
     {
         $query = Appointment::latest();
 
@@ -130,15 +129,44 @@ class AppointmentController extends Controller
 
         $appointment->status = $request->status;
 
-        if ( $request->status == 'canceled' ) {
+        if ($request->status == 'canceled') {
             $appointment->canceled_log = $request->canceledLog;
         }
 
-        if ( $request->status == 'paid' ) {
+        if ($request->status == 'paid') {
             $appointment->type_of_payment = $request->typeOfPayment;
         }
 
         $appointment->save();
+
+
+
+        return $this->okResponse(
+            message: "API call successful",
+            data: [
+                'data' => AppointmentResource::make($appointment)
+            ]
+        );
+    }
+
+    public function discount(Request $request, $id)
+    {
+        $request->validate([
+            'discount'  => 'required|numeric|min:1|max:100',
+        ]);
+
+        $appointment = Appointment::find($id);
+
+        if (!$appointment) {
+            return $this->badResponse(
+                message: "Appointment not found"
+            );
+        }
+
+        if ($appointment->discount == 0) {
+            $appointment->discount = $request->discount;
+            $appointment->save();
+        }
 
 
 

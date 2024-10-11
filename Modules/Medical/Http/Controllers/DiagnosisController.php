@@ -83,44 +83,42 @@ class DiagnosisController extends Controller
         $services = Service::whereIn('id', $request->services)
             ->get();
 
+        $invoiceItems = $services->map(function (Service $service) use ($taxRate) {
+            $tax = ($service->price / 100) * $taxRate;
 
-        if ($services->count() > 0) {
+            return [
+                'service_id'        => $service->id,
+                'service_name'      => $service->name,
+                'tax'              => $tax,
+                'amount'            => $service->price,
+            ];
+        });
 
-            $invoiceItems = $services->map(function (Service $service) use ($taxRate) {
-                $tax = ($service->price / 100) * $taxRate;
+        $invoiceItems = $services->map(function (Service $service) use ($taxRate) {
+            $tax = ($service->price / 100) * $taxRate;
 
-                return [
-                    'service_id'        => $service->id,
-                    'service_name'      => $service->name,
-                    'tax'              => $tax,
-                    'amount'            => $service->price,
-                ];
-            });
+            return [
+                'service_id'        => $service->id,
+                'service_name'      => $service->name,
+                'tax'              => $tax,
+                'amount'            => $service->price,
+            ];
+        });
 
-            if ($appointment->visit_type == 'examination') {
-                $doctor = $appointment->doctor;
-                $cost   = $doctor->specialty->examination_cost;
 
-                $invoiceItems = collect([
-                    [
-                        'service_name' => $doctor->specialty->name,
-                    'tax'          => ($cost / 100)  * $taxRate,
-                    'amount'        => $cost,
-                    ]
-                ])->merge($invoiceItems);
-            }
 
-            $totalTaxes   = $invoiceItems->sum('tax');
-            $totalAmount  = $invoiceItems->sum('amount');
+        $totalTaxes   = $invoiceItems->sum('tax');
+        $totalAmount  = $invoiceItems->sum('amount') + $totalTaxes;
+        $discount     = ( $totalAmount / 100)  * ( $appointment->discount ?? 0 );
 
-            $diagnosis->invoice()
-                ->create([
-                    'total_taxes'  => $totalTaxes,
-                    'total_amount' => $totalAmount
-                ])
-                ->invoiceItems()
-                ->createMany($invoiceItems->toArray());
-        }
+        $diagnosis->invoice()
+            ->create([
+                'total_taxes'  => $totalTaxes,
+                'discount'     => $discount,
+                'total_amount' => $totalAmount - $discount
+            ])
+            ->invoiceItems()
+            ->createMany($invoiceItems->toArray());
 
         return $this->okResponse(
             message: "Diagnosis created successfully",
