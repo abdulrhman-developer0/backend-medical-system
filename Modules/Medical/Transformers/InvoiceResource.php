@@ -33,6 +33,7 @@ class InvoiceResource extends JsonResource
             'clinic_name'   => $doctor->clinic->name,
             'type_of_payment'   => $appointment->type_of_payment_ar,
             'taxes'         => $this->total_taxes,
+            "discount"          => $this->discount,
             'total'         => $this->total_amount,
             'services'      => $this->invoiceItems->map(function ($service) {
                 return $service->only(['service_name', 'tax', 'amount']);

@@ -20,7 +20,7 @@ class DiagnosisController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['type:doctor'])
+        $this->middleware(['type:admin,doctor'])
             ->only([
                 'index',
                 'store',

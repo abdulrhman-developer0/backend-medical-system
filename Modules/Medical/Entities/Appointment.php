@@ -43,7 +43,7 @@ class Appointment extends Model
         $types = Setting::find('visitTypes')?->value ?? [];
 
         foreach ($types as $type) {
-            if ($this->attributes['visit_type'] == $type['nameEn']) return $type['nameAr'];
+            if ($this->attributes?['visit_type'] == $type['nameEn']) return $type['nameAr'];
         }
 
         return 'none';
@@ -54,7 +54,7 @@ class Appointment extends Model
         $types = Setting::find('paymentTypes')?->value ?? [];
 
         foreach ($types as $type) {
-            if ( $this->attributes['type_of_payment'] == $type['nameEn']) return $type['nameAr'];
+            if ( $this->attributes?['type_of_payment'] == $type['nameEn']) return $type['nameAr'];
         }
 
         return 'none';
