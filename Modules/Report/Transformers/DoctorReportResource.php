@@ -89,7 +89,7 @@ class DoctorReportResource extends JsonResource
                 'patient_name'  => $appointment->patient?->name,
                 'status'        => $appointment->status,
                 'amount_collected' => $appointment->dignosis?->invoice?->total_amount ?? 0,
-                'invoice'          => $appointment->dignosis?->invoice? InvoiceResource::make($appointment->dignosis?->invoice) : null,
+                'invoice'          => $appointment->diagnosis?->invoice? InvoiceResource::make($appointment->diagnosis?->invoice) : null,
 
             ];
         });
