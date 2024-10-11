@@ -5,6 +5,7 @@ namespace Modules\Report\Transformers;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Modules\Medical\Entities\Appointment;
+use Modules\Medical\Transformers\InvoiceResource;
 
 class DoctorReportResource extends JsonResource
 {
@@ -87,7 +88,9 @@ class DoctorReportResource extends JsonResource
                 'visit_type'    => $appointment->visit_type,
                 'patient_name'  => $appointment->patient?->name,
                 'status'        => $appointment->status,
-                'amount_collected' => $appointment->dignosis?->invoice?->total_amount ?? 0
+                'amount_collected' => $appointment->dignosis?->invoice?->total_amount ?? 0,
+                'invoice'          => $appointment->dignosis?->invoice ? InvoiceResource::make($appointment->dignosis?->invoice) : null,
+
             ];
         });
     }
