@@ -84,4 +84,9 @@ class Appointment extends Model
     {
         return $this->hasOne(Diagnosis::class);
     }
+
+    public function analysis()
+    {
+        return $this->hasOne(Service::class);
+    }
 }
