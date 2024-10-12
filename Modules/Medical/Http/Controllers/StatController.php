@@ -22,6 +22,7 @@ class StatController extends Controller
         $stats['services'] = Service::count();
         $stats['patients'] = Patient::count();
         $stats['appointments'] = Appointment::count();
+        $stats['analysis'] = Service::where('stype', 'analysis')->count();
 
         return $this->okResponse(
             message: "API success call",
