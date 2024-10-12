@@ -44,6 +44,7 @@ class Appointment extends Model
     {
         $types = Setting::find('visitTypes')?->value ?? [];
         $visitType = $this->attributes['visit_type'] ?? null;
+        if ( $visitType == 'analysis' )return "تحليل";
 
         foreach ($types as $type) {
             if ($visitType == $type['nameEn']) return $type['nameAr'];
