@@ -29,10 +29,21 @@ class SettingController extends Controller
 
     public function update(SettingRequest $request)
     {
-        $settings = $request->validated();
+        // get updated settings
+        $updatedSettings = $request->validated();
 
-        foreach ($settings as $key => $value) {
-            Setting::find($key)?->update(['value' => $value]);
+        // merge setings and intracts with database.
+        foreach ($updatedSettings as $key => $vlaue) {
+            // get setting by key
+            $setting = Setting::find($key);
+            if (! $setting) continue;
+
+            $setting->value = array_merge(
+                $setting->value  ?? [],
+                $vlaue ?? []
+            );
+
+            $setting->save();
         }
 
         return $this->okResponse(
