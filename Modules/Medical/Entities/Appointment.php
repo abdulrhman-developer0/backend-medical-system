@@ -43,13 +43,13 @@ class Appointment extends Model
     public function getVisitTypeArAttribute()
     {
         $types = Setting::find('visitTypes')?->value ?? [];
-        $vistType = $this->attributes['visit_type'] ?? null;
+        $visitType = $this->attributes['visit_type'] ?? null;
 
         foreach ($types as $type) {
             if ($visitType == $type['nameEn']) return $type['nameAr'];
         }
 
-        return $vistType;
+        return $visitType;
     }
 
     public function getTypeOfPaymentAttribute($t)
