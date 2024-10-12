@@ -17,7 +17,7 @@ class ServiceTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $services = [
+        $services = collect([
             [
                 'name' => 'قياس سكر',
                 'price' => 20,
@@ -93,10 +93,13 @@ class ServiceTableSeeder extends Seeder
                 'price' => 200,
                 'description' => 'إجراء تخطيط كهربائي للقلب.'
             ],
-        ];
+        ])->map(function(array $item) {
+            $item['stype'] = 'action';
+            return $item;
+        });
 
 
 
-        Service::insert($services);
+        Service::insert($services->toArray());
     }
 }

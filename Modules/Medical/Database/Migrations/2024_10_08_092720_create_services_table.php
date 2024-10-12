@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Medical\Entities\Service;
 
 return new class extends Migration
 {
@@ -18,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->decimal('price');
+            $table->enum('stype', Service::$types);
             $table->timestamps();
         });
     }

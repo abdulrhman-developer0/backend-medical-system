@@ -13,7 +13,10 @@ class Service extends Model
         'name',
         'description',
         'price',
+        'stype'
     ];
+
+    public static $types = ['analysis', 'action'];
 
     protected static function newFactory()
     {

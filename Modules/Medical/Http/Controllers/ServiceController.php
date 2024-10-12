@@ -31,11 +31,16 @@ class ServiceController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $services = Service::query()
-            ->latest()
-            ->get();
+        $querty = Service::latest();
+
+        if ( $request->stype ) {
+            $querty->where('stype', $request->stype);
+        }
+
+
+        $services = $querty->get();
 
         return $this->okResponse(
             message: "API call successful",

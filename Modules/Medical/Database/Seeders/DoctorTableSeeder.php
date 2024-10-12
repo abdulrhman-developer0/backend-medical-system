@@ -15,21 +15,6 @@ class DoctorTableSeeder extends Seeder
 
         $doctors = collect([
             [
-                'name' => 'د. أحمد الفارسي',
-                'clinic_id' => 1,
-                'status' => 'active',
-                'specialty_id' => 1, // Assuming this is the ID for 'الطبيب العام'
-                'available_times' => [
-                    'mon' => ['start' => '9:00 AM', 'end' => '5:00 PM'],
-                    'tue' => ['start' => '9:00 AM', 'end' => '5:00 PM'],
-                    'wed' => ['start' => 'NA', 'end' => 'NA'],
-                    'thu' => ['start' => '9:00 AM', 'end' => '5:00 PM'],
-                    'fri' => ['start' => 'NA', 'end' => 'NA'],
-                    'sat' => ['start' => '9:00 AM', 'end' => '2:00 PM'],
-                    'sun' => ['start' => 'NA', 'end' => 'NA'],
-                ],
-            ],
-            [
                 'name' => 'د. سارة محمد',
                 'clinic_id' => 2,
                 'status' => 'active',
@@ -44,7 +29,6 @@ class DoctorTableSeeder extends Seeder
                     'sun' => ['start' => 'NA', 'end' => 'NA'],
                 ],
             ],
-            // Add other doctors similarly
         ]);
 
         $doctors->each(function ($doctorData) {
