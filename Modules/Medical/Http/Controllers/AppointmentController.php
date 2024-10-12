@@ -185,7 +185,7 @@ class AppointmentController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(UpdateAppointmentRequest $request, $id)
+    public function update(UpdateAppointmentStatusRequest $request, $id)
     {
         $appointment = Appointment::find($id);
 

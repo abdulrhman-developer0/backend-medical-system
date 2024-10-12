@@ -18,11 +18,13 @@ class UserDatabaseSeeder extends Seeder
         Model::unguard();
 
         User::Factory()->create([
+            'name'  => 'Admin',
             'email'  => "admin@domain.com",
             'type'   => 'admin'
         ]);
 
         User::factory()->create([
+            'name'  => 'Default Reception',
             'email'  => "reception@domain.com",
             'type'   => 'reception'
         ]);

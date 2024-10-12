@@ -18,11 +18,13 @@ class Appointment extends Model
         'time',
         'notes',
         'type_of_payment',
+        'serivice_id',
     ];
 
     protected $attributes = [
         'status'        => 'pending',
         'discount'      => 0,
+        'vist_type'     => 'analysis',
     ];
 
     public static $statuses = [
@@ -41,23 +43,25 @@ class Appointment extends Model
     public function getVisitTypeArAttribute()
     {
         $types = Setting::find('visitTypes')?->value ?? [];
+        $vistType = $this->attributes['visit_type'] ?? null;
 
         foreach ($types as $type) {
-            if ($this->attributes['visit_type'] == $type['nameEn']) return $type['nameAr'];
+            if ($visitType == $type['nameEn']) return $type['nameAr'];
         }
 
-        return 'none';
+        return $vistType;
     }
 
     public function getTypeOfPaymentAttribute($t)
     {
         $types = Setting::find('paymentTypes')?->value ?? [];
+        $typeOfPayment = $this->attributes['type_of_payment'] ?? null;
 
         foreach ($types as $type) {
-            if ( $this->attributes['type_of_payment'] == $type['nameEn']) return $type['nameAr'];
+            if ( $typeOfPayment == $type['nameEn']) return $type['nameAr'];
         }
 
-        return 'none';
+        return $typeOfPayment ?? 'Not Selected';
     }
 
     protected static function newFactory()

@@ -70,7 +70,7 @@ class DoctorController extends Controller
             ])
             ->toArray();
 
-        $userData = $request->only(['email', 'password']);
+        $userData = $request->only(['name', 'email', 'password']);
         $creationData['password'] = Hash::make($userData['password']);
         $userData['type'] = 'doctor';
         $user = User::create($userData);
@@ -142,7 +142,7 @@ class DoctorController extends Controller
 
         $doctor->update($updateData);
 
-        $userData = $request->only(['email', 'password']);
+        $userData = $request->only(['name', 'email', 'password']);
         if (isset($userData['password'])) $creationData['password'] = Hash::make($userData['password']);
         $creationData['type'] = 'doctor';
         $doctor->user?->update($userData);

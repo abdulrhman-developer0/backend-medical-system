@@ -40,6 +40,7 @@ class DoctorTableSeeder extends Seeder
             $doctor = Doctor::create($data);
 
             $user = User::factory()->create([
+                'name'  => $doctor->name,
                 'email' => "{$doctor->id}@domain.com",
                 'type'  => 'doctor'
             ]);

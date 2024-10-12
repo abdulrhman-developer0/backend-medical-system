@@ -19,6 +19,9 @@ class Doctor extends Model
         'user_id',
         'status'
     ];
+    protected $attributes = [
+        'status'    => 'active',
+    ];
 
     public static $statuses = [
         'active',
