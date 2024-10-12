@@ -24,7 +24,7 @@ class Appointment extends Model
     protected $attributes = [
         'status'        => 'pending',
         'discount'      => 0,
-        'viist_type'     => 'analysis',
+        'visit_type'     => 'analysis',
     ];
 
     public static $statuses = [
