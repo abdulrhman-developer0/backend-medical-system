@@ -61,7 +61,7 @@ class Appointment extends Model
             if ( $typeOfPayment == $type['nameEn']) return $type['nameAr'];
         }
 
-        return $typeOfPayment ?? 'Not Selected';
+        return $typeOfPayment ?? 'لم يتم الدفع';
     }
 
     protected static function newFactory()
