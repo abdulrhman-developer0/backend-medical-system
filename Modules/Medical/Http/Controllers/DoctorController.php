@@ -147,8 +147,10 @@ class DoctorController extends Controller
         $creationData['type'] = 'doctor';
         $doctor->user?->update($userData);
 
-        $doctor->availableTimes()
-            ->update($tdo->availableTimes);
+        if ($tdo->availableTimes) {
+            $doctor->availableTimes()
+                ->update($tdo->availableTimes);
+        }
 
         return $this->okResponse(
             message: "Doctor updated successfully",
