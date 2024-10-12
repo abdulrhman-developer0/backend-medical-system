@@ -18,7 +18,7 @@ class Appointment extends Model
         'time',
         'notes',
         'type_of_payment',
-        'serivice_id',
+        'service_id',
     ];
 
     protected $attributes = [
