@@ -98,7 +98,7 @@ class DiagnosisController extends Controller
         if ($appointment->visit_type == 'examination') {
 
             // The name of service.
-            dd($appointment->doctor->speciality);
+            dd($appointment->doctor->speciality_id);
             $name = $appointment->doctor?->speciality?->name;;
 
             // The examination coset of doctor speciality.
