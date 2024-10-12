@@ -26,7 +26,7 @@ return new class extends Migration
             $table->enum('status', Appointment::$statuses);
             $table->string('canceled_log')->nullable();
             $table->enum('type_of_payment', Appointment::$paymentTypes)->nullable();
-            $table->unsignedBigInteger('serivice_id')->nullable();
+            $table->unsignedBigInteger('service_id')->nullable();
             $table->float('discount');
             $table->timestamps();
         });
