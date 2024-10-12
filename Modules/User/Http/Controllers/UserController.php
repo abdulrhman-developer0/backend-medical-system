@@ -122,7 +122,7 @@ class UserController extends Controller
         $tdo = TDOFacade::make($request);
         $updateData = collect($tdo->asSnake())->except([])->toArray();
         // hashing the password
-        $updateData['password'] = Hash::make($updateData['password']);
+        if ( isset($updateData['password']) ) $updateData['password'] = Hash::make($updateData['password']);
 
         $user->update($updateData);
 
