@@ -22,6 +22,10 @@ Route::prefix('/users')->group(function () {
     Route::post('/auth', [AuthController::class, 'store']);
     Route::put('/auth/change-password', [AuthController::class, 'changePassword']);
     Route::delete('/auth', [AuthController::class, 'destroy']);
+});
 
-    Route::apiResource('/users', UserController::class);
+Route::prefix('/auth')->group(function () {
+
+    Route::apiResource('/users', UserController::class)
+        ->middleware();
 });
