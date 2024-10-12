@@ -81,7 +81,6 @@ class AppointmentController extends Controller
             ->except([])
             ->toArray();
 
-            dd($creationData);
         $appointment = Appointment::create($creationData);
 
         return $this->okResponse(
