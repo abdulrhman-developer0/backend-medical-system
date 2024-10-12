@@ -3,7 +3,7 @@
 namespace Modules\Medical\Transformers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Modules\Medical\Entities\Service;
+
 
 class AppointmentResource extends JsonResource
 {
@@ -27,7 +27,7 @@ class AppointmentResource extends JsonResource
             'date'              => $this->date,
             'time'              => $this->time,
             'notes'             => $this->notes,
-            'analysis'          => $this->analysis ? Service::make($this->analysis) : null,
+            'analysis'          => $this->analysis ? ServiceResource::make($this->analysis) : null,
             'diagnsis'          => $this->diagnosis? DiagnosisResource::make($this->diagnosis) : null,
             'status'            => $this->status,
             'canceled_log'      => $this->canceled_log,
