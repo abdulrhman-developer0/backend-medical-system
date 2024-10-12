@@ -98,11 +98,10 @@ class DiagnosisController extends Controller
         if ($appointment->visit_type == 'examination') {
 
             // The name of service.
-            dd($appointment->doctor->toArray());
-            $name = $appointment->doctor?->speciality?->name;;
+            $name = $appointment->doctor?->specialty?->name;;
 
             // The examination coset of doctor speciality.
-            $cost = $appointment->doctor?->speciality?->examination_cost;
+            $cost = $appointment->doctor?->specialty?->examination_cost;
 
             // calculate the tax.
             $tax = ($cost / 100) * $taxRate;
