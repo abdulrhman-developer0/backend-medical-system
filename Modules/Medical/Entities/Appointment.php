@@ -87,6 +87,6 @@ class Appointment extends Model
 
     public function analysis()
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsTo(Service::class, 'service_id');
     }
 }
