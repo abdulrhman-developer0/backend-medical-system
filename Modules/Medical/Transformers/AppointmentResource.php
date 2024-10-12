@@ -22,7 +22,7 @@ class AppointmentResource extends JsonResource
             'doctor_id'         => $this->doctor_id,
             'doctor_name'       => $this->doctor?->name,
             'visit_type'        => $this->visit_type_ar,
-            'is_analysis'       =>  (bool) $this->service_id,
+            'is_analysis'       =>   $this->service_id,
             'date'              => $this->date,
             'time'              => $this->time,
             'notes'             => $this->notes,
