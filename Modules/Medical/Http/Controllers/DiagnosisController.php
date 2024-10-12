@@ -132,10 +132,7 @@ class DiagnosisController extends Controller
             ])->merge($invoiceItems);
         }
 
-
-
-
-
+        dd($invoiceItems);
         $totalTaxes   = $invoiceItems->sum('tax');
         $totalAmount  = $invoiceItems->sum('amount') + $totalTaxes;
         $discount     = ($totalAmount / 100)  * ($appointment->discount ?? 0);
