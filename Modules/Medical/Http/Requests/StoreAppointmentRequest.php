@@ -16,7 +16,8 @@ class StoreAppointmentRequest extends FormRequest
         return [
             'doctorId' => 'required|exists:doctors,id',
             'patientId' => 'required|exists:patients,id',
-            'visitType' => 'required|string|max:255',
+            'visitType' => 'required_without:serviceId|string|max:255',
+            'serviceId' => 'required_without:visitType|integer|exists:services,id',
             'date' => 'required|date',
             'time' => 'nullable|date_format:H:i',
             'notes' => 'nullable|string',
