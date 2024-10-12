@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\AuthController;
+use Modules\User\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,6 @@ Route::prefix('/users')->group(function () {
     Route::post('/auth', [AuthController::class, 'store']);
     Route::put('/auth/change-password', [AuthController::class, 'changePassword']);
     Route::delete('/auth', [AuthController::class, 'destroy']);
+
+    Route::apiResource('/users', UserController::class);
 });
