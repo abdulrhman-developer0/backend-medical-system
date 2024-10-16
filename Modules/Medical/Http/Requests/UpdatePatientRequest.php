@@ -17,7 +17,7 @@ class updatePatientRequest extends FormRequest
             'name' => 'nullable|string|max:255',
             'nationality' => 'nullable|string|max:255',
             'mobile' => 'nullable|string|max:15',
-            'nationalId' => 'nullable|min:14|max:20',
+            'nationalId' => 'nullable|min:10|max:20',
             'address' => 'nullable|string|max:255',
             'age' => 'nullable|integer',
             'dateOfBirth' => 'nullable|date',
